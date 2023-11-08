@@ -1,0 +1,57 @@
+service: dog-api-serverless
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  profile: david-zocom
+  region: eu-north-1
+  iam:
+    role: arn:aws:iam::116525801356:role/lectures-cloud
+
+plugins:
+  - serverless-webpack
+
+package:
+  individually: true
+
+functions:
+  getDogs:
+    handler: functions/getDogs/index.handler
+    events:
+      - httpApi:
+          path: '/dogs'
+          method: GET
+  postDog:
+    handler: functions/postDog/index.handler
+    events:
+      - httpApi:
+          path: '/dogs'
+          method: POST
+  deleteDog:
+    handler: functions/deleteDog/index.handler
+    events:
+      - httpApi:
+          path: '/dogs/{dogId}'
+          method: DELETE
+  updateDog:
+    handler: functions/updateDog/index.handler
+    events:
+      - httpApi:
+          path: '/dogs/{dogId}'
+          method: PATCH
+
+
+resources:
+  Resources:
+    dogsDb:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: dogs-db
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST
