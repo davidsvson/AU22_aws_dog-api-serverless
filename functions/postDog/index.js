@@ -1,6 +1,6 @@
 const AWS = require('aws-sdk');
-const { sendResponse } = require('../../responses');
 const db = new AWS.DynamoDB.DocumentClient();
+const { sendResponse } = require('../../responses');
 
 
 exports.handler = async (event, context) => {
