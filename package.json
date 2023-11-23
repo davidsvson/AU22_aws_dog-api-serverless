@@ -13,7 +13,7 @@
     "serverless-webpack": "^5.13.0"
   },
   "dependencies": {
-    "@middy/core": "^5.0.1",
+    "@middy/core": "^5.0.2",
     "bcryptjs": "^2.4.3",
     "jsonwebtoken": "^9.0.2",
     "nanoid": "^5.0.3"
